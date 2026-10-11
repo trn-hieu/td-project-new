@@ -1,0 +1,9 @@
+[submodule "td-project-legacy"]
+	path = td-project-legacy
+	url = https://github.com/trn-hieu/td-project
+[submodule "backend"]
+	path = backend
+	url = https://github.com/trn-hieu/td-project-be
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/trn-hieu/td-fe
