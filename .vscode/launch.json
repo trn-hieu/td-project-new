@@ -8,6 +8,17 @@
             "mainClass": "com.thanhdo.tdprojectbe.TdProjectBeApplication",
             "projectName": "td-project-be",
             "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=55736 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=td-project-be"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ThanhdoApplication<thanhdo>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.jvb.thanhdo.ThanhdoApplication",
+            "projectName": "thanhdo",
+            "args": "",
             "envFile": "${workspaceFolder}/.env"
         }
     ]
