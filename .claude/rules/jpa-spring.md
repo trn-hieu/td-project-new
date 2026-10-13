@@ -43,12 +43,27 @@ Rules for the cases that remain native:
 
 ## Package layout
 
-Package by feature, not by layer: `<feature>/` holds the controller and service, with sub-packages
-`entity/`, `repository/` and `dto/` where they exist (`employee/`, `branch/`, `auth/`…). Shared code is in
-`common/` (`exception`, `response`, `time`), configuration in `config/`.
+Package by layer, under `com.thanhdo.tdprojectbe`:
+
+```
+controller/      XxxController
+service/         XxxService
+repository/      XxxRepository
+model/entity/    JPA entities
+model/dto/       request/response records (and value records/enums passed between layers, e.g. SearchArea)
+common/          shared code: exception, response, time, util, constant
+config/          @Configuration classes and @ConfigurationProperties (XxxConfig, XxxProperties)
+```
+
+- Classes of different features sit side by side in the same layer package; a class is named after its feature
+  (`EmployeeController`, `EmployeeService`, `EmployeeRepository`, `EmployeeListItem`), so DTO names must be unique
+  across `model/dto/`.
+- Do not create `<feature>/` packages, and do not add other top-level layer packages without being asked.
+- A class used across layers (e.g. a helper called from a controller) must be `public`; package-private is only for
+  a class used inside its own layer package (e.g. `service/Authorities`).
 - Services are concrete classes annotated `@Service`; **no `XxxService` interface + `impl/` pair** unless there are
   at least two implementations.
-- Follow the neighbouring feature before inventing a new structure.
+- Tests mirror the main package (`controller/EmployeeControllerTest`, `service/EmployeeServiceTest`).
 
 ## Entity
 
@@ -91,8 +106,7 @@ Package by feature, not by layer: `<feature>/` holds the controller and service,
 
 ## Repository
 
-- Interface `XxxRepository extends JpaRepository<Xxx, Long>` in `<feature>/repository/` (or the feature root if
-  the feature has no sub-packages). Composite keys use `JpaRepository<Xxx, XxxId>`.
+- Interface `XxxRepository extends JpaRepository<Xxx, Long>` in `repository/`. Composite keys use `JpaRepository<Xxx, XxxId>`.
 - Dynamic search screens: `JpaSpecificationExecutor<Xxx>` and `Specification` helpers instead of a string-built
   query.
 - List endpoints take `Pageable` and return `Page<>`. No unbounded `findAll()` on a table that can grow. The
@@ -129,7 +143,7 @@ Package by feature, not by layer: `<feature>/` holds the controller and service,
 
 ## DTO / Mapper
 
-- DTOs are `record`s in `<feature>/dto/`. Map by hand with a static factory (`XxxResponse.from(entity)`); no
+- DTOs are `record`s in `model/dto/`. Map by hand with a static factory (`XxxResponse.from(entity)`); no
   MapStruct.
 - Everything a `from(entity)` touches must already be loaded.
 
