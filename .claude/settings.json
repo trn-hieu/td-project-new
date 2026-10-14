@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "model": "opusplan",
+  "effortLevel": "medium",
+  "modelSettings": {
+    "claude-opus-5-5": { "effortLevel": "high" },
+    "claude-sonnet-5-5": { "effortLevel": "medium" },
+    "claude-haiku-5-5": { "effortLevel": "low" }
+  },
+  "env": {
+    "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet"
+  },
+  "language": "vietnamese",
+  "permissions": {
+    "deny": [
+      "Read(**/.env*)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/*.p12)",
+      "Read(**/*.jks)",
+      "Read(**/id_rsa*)",
+      "Read(**/id_ed25519*)",
+      "Read(**/*credentials*)",
+      "Edit(**/.env)",
+      "Edit(.git/**)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf ~*)"
+    ],
+    "ask": [
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(docker *)",
+      "Bash(kubectl *)",
+      "Bash(npm install*)",
+      "Bash(npm publish*)",
+      "Bash(git push*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean*)",
+      "Bash(git checkout -- *)"
+    ],
+    "allow": [
+      "Read(**/.env.example)",
+      "Bash(git status)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(cd backend)",
+      "Bash(cd frontend)",
+      "Bash(./gradlew test*)",
+      "Bash(./gradlew compileJava*)",
+      "Bash(./gradlew compileTestJava*)",
+      "Bash(./gradlew spotlessCheck*)",
+      "Bash(./gradlew spotlessApply*)",
+      "Bash(./gradlew checkstyleMain*)",
+      "Bash(./gradlew checkstyleTest*)",
+      "Bash(./gradlew bootRun)",
+      "Bash(npm run lint*)",
+      "Bash(npm run typecheck*)",
+      "Bash(npm run build)",
+      "Bash(npm run dev)"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "network": {
+      "allowedDomains": [
+        "github.com",
+        "registry.npmjs.org",
+        "services.gradle.org",
+        "downloads.gradle.org",
+        "plugins.gradle.org",
+        "plugins-artifacts.gradle.org",
+        "repo.maven.apache.org",
+        "repo1.maven.org"
+      ]
+    },
+    "credentials": {
+      "files": [{ "path": "~/.ssh", "mode": "deny" }]
+    }
+  },
+  "hooks": {
+    "PostToolUse": [],
+    "Stop": [
+      {
+        "hooks": [{ "type": "command", "command": "(cd \"$CLAUDE_PROJECT_DIR/backend\" && ./gradlew spotlessCheck checkstyleMain checkstyleTest test) && (cd \"$CLAUDE_PROJECT_DIR/frontend\" && npm run lint && npm run typecheck)" }]
+      }
+    ]
+  }
+}
