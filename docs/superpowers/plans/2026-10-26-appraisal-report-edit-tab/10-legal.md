@@ -36,15 +36,15 @@ Nguồn: `L controller/AppraisalReportTabController.java:81-121`, `L controller/
 - [x] **Step 2–4:** FAIL → cài đặt → `./mvnw -q test -Dtest='*Legal*,AppraisalReportAssetRepositoryTest,AppraisalReportFileRepositoryTest'` PASS.
 - [x] **Step 5: Commit** `feat: API tab pháp lý báo cáo thẩm định`.
 
-### Task T08: FE Pháp lý — Đất / Căn hộ
+### Task T08: FE Pháp lý — Đất / Căn hộ ✅ (frontend a38e86b)
 
 **Files:** Create `F api/report-edit/legal.ts`, `F lib/report-edit/legal-documents-text.ts`, `F components/appraisal-report/edit/legal/LegalTab.vue` (pill tài sản + chọn form theo `assetType`), `LegalLandAssetForm.vue`, `LegalAttachedFiles.vue` (danh sách + kéo thả + xóa, dùng chung với T09), `OtherInfoRows.vue`; Modify `GroupWorkspace.vue` (map `legal`). Test: `lib/report-edit/__tests__/legal-documents-text.spec.ts`, `components/appraisal-report/edit/legal/__tests__/LegalTab.spec.ts`.
 
 **Interfaces:** Produces `legal-documents-text.ts`: `landLegalText(current: string, fields: LandLegalFields): string`, `carLegalText(current: string, fields: CarLegalFields): string`; `api/report-edit/legal.ts`: `getLegal(...)`, `saveLegalAsset(profileId, reportId, groupId, assetId, data, files: File[])` (FormData với part `data` là `Blob` JSON), `deleteLegalFile(...)`.
 
-- [ ] **Step 1: Test thất bại**: `legal-documents-text.spec.ts` — `đủ_trường_sinh_đúng_câu` (so chuỗi đầy đủ theo công thức), `thay_dòng_đã_sinh_giữ_dòng_khác`, `không_có_trường_nào_xóa_dòng_sinh`, `khác_nối_một_lần`, `ngày_dạng_dd_tháng_mm_năm_yyyy`; `LegalTab.spec.ts` — `mỗi_tài_sản_một_pill`, `sửa_số_gcn_cập_nhật_3.8`, `lưu_gửi_formdata_có_file`, `xóa_file_hỏi_xác_nhận` (`confirmDelete`).
-- [ ] **Step 2–4:** FAIL → cài đặt (vee-validate + zod, `DatePicker` ISO, gợi ý 3.1 bằng `SuggestInput`, `FormActions` nút "Lưu"; `useDirtyTab`) → lint/type-check/test PASS.
-- [ ] **Step 5: Commit** `feat: tab pháp lý đất và căn hộ`.
+- [x] **Step 1: Test thất bại**: `legal-documents-text.spec.ts` — `đủ_trường_sinh_đúng_câu` (so chuỗi đầy đủ theo công thức), `thay_dòng_đã_sinh_giữ_dòng_khác`, `không_có_trường_nào_xóa_dòng_sinh`, `khác_nối_một_lần`, `ngày_dạng_dd_tháng_mm_năm_yyyy`; `LegalTab.spec.ts` — `mỗi_tài_sản_một_pill`, `sửa_số_gcn_cập_nhật_3.8`, `lưu_gửi_formdata_có_file`, `xóa_file_hỏi_xác_nhận` (`confirmDelete`).
+- [x] **Step 2–4:** FAIL → cài đặt (vee-validate + zod, `DatePicker` ISO, gợi ý 3.1 bằng `SuggestInput`, `FormActions` nút "Lưu"; `useDirtyTab`) → lint/type-check/test PASS.
+- [x] **Step 5: Commit** `feat: tab pháp lý đất và căn hộ`.
 
 ### Task T09: FE Pháp lý — Ô tô
 
