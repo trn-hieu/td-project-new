@@ -68,7 +68,7 @@ Bản port rút gọn hiện có (`N service/result/`): `EvaluationResultCalcula
 - [x] **Step 5: Chạy** `./mvnw -q test -Dtest='AppraisalResultCalculatorTest,EvaluationResultCalculatorTest,EvaluationResultLoaderTest,LandPricesTest,VcbReportAssemblerTest,VcbReportServiceTest'` → PASS (test cũ **không sửa** để làm xanh; nếu phải sửa → dừng, báo lại).
 - [x] **Step 6: Commit** `feat: port đầy đủ AppraisalResultCalculator, bản rút gọn ủy quyền`.
 
-### Task T05: API kết quả thẩm định + lưu
+### Task T05: API kết quả thẩm định + lưu ✅ (backend a33a4aa)
 
 **Files:**
 - Modify: `N model/entity/AppraisalResult.java` (`@GeneratedValue(IDENTITY)`, thêm toàn bộ cột ở mục Hành vi; factory `static AppraisalResult create(long reportId, long groupId, long createdBy)` và `void overwrite(EvaluationResultSaveRequest req, Long requestId)`), `N repository/AppraisalReportAssetRepository.java` (`findFirstByAppraisalAssetGroupIdAndDeleteFlagOrderByIdAsc`), `N service/result/EvaluationResultLoader.java` (thêm `loadFull`)
@@ -83,9 +83,9 @@ Bản port rút gọn hiện có (`N service/result/`): `EvaluationResultCalcula
   - `GET  …/reports/{reportId}/groups/{groupId}/evaluation-result?roundingMoneyType=` → `EvaluationResultResponse` (JSON có cả trường null).
   - `PUT  …/reports/{reportId}/groups/{groupId}/evaluation-result` body `EvaluationResultSaveRequest` → `ApiResponse.ok(null, "Lưu kết quả thẩm định thành công")`. Giống cũ: lưu giá trị client gửi; `appraisa_request_id` = yêu cầu của báo cáo; `appraisal_profile_id` và 16 cột cũ = null; audit như cũ.
 
-- [ ] **Step 1: Test thất bại**: repository test ghi/đọc; `EvaluationResultServiceTest`: `lưu_lần_đầu_tạo_dòng_và_created_by`, `lưu_lần_hai_ghi_đè_và_null_cột_cũ`, `nhóm_sai_báo_cáo_404`; controller: `json_giống_hệ_thống_cũ` (so tập khóa JSON với danh sách 24 trường ở cuối file, gồm khóa có giá trị null), `roundingMoneyType_3_trả_400`.
-- [ ] **Step 2–4:** chạy FAIL → cài đặt → chạy PASS (kèm toàn bộ test `service/result`).
-- [ ] **Step 5: Commit** `feat: API kết quả thẩm định theo nhóm tài sản`.
+- [x] **Step 1: Test thất bại**: repository test ghi/đọc; `EvaluationResultServiceTest`: `lưu_lần_đầu_tạo_dòng_và_created_by`, `lưu_lần_hai_ghi_đè_và_null_cột_cũ`, `nhóm_sai_báo_cáo_404`; controller: `json_giống_hệ_thống_cũ` (so tập khóa JSON với danh sách 24 trường ở cuối file, gồm khóa có giá trị null), `roundingMoneyType_3_trả_400`.
+- [x] **Step 2–4:** chạy FAIL → cài đặt → chạy PASS (kèm toàn bộ test `service/result`).
+- [x] **Step 5: Commit** `feat: API kết quả thẩm định theo nhóm tài sản`.
 
 ### Bảng trường `EvaluationResultResponse` (khớp `EvaluationResultDetailDto` cũ)
 
