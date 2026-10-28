@@ -13,7 +13,7 @@ Nguồn: `LR templates/appraisal-records/evaluation-results.html` (fragment `eva
 - **Ô tô** (l.1020–1039): "Giá trị " + chữ đầu thường(`assetName`) = `car.amount`; "Làm tròn" = `car.roundedAmount ?? roundingMoney`; Bằng chữ.
 - Định dạng: tiền làm tròn số nguyên, nhóm nghìn bằng "."; **0 hoặc null hiển thị trống**; diện tích là chuỗi từ server, hiển thị nguyên.
 
-### Task T06: Tab Kết quả thẩm định
+### Task T06: Tab Kết quả thẩm định ✅ (frontend c348c42)
 
 **Files:**
 - Create: `F api/report-edit/evaluation-result.ts`, `F lib/report-edit/evaluation-result-format.ts`, `F components/appraisal-report/edit/results/EvaluationResultTab.vue`, `F components/appraisal-report/edit/results/EvaluationResultTables.vue` (chỉ hiển thị, dùng lại ở CTXD và Bảng điều chỉnh), `F components/appraisal-report/edit/results/LandResultTable.vue`, `ConstructionResultTable.vue`, `AssetResultTable.vue`
@@ -28,6 +28,6 @@ Nguồn: `LR templates/appraisal-records/evaluation-results.html` (fragment `eva
   - `EvaluationResultTables.vue` props `{ result: EvaluationResult; sections?: ('land' | 'construction' | 'asset')[]; showAgriculturalNote?: boolean }`.
   - `EvaluationResultTab.vue` expose `reload()`.
 
-- [ ] **Step 1: Test thất bại**: format (`0_hiển_thị_trống`, `nhóm_nghìn_bằng_dấu_chấm`, `lowerFirst`); Tables: `đất_mixed_một_dòng_loại_đất_gạch`, `đất_nông_nghiệp_nhiều_dòng`, `công_trình_ẩn_khi_không_có`, `căn_hộ_chưa_có_dữ_liệu`, `ô_tô_làm_tròn_fallback_roundingMoney`; Tab: `đổi_radio_gọi_api_với_roundingMoneyType`, `lưu_gửi_bằng_chữ_tính_bằng_readMoney`, `ẩn_nút_lưu_với_NVPI`, `ghi_chú_chưa_lưu_đánh_dấu_bẩn` (gọi `useDirtyTab`).
-- [ ] **Step 2–4:** FAIL → cài đặt (bảng dùng `@/components/ui/table`, tiền `text-right tabular-nums`; radio `RadioOptions`; ghi chú `AutoTextarea`; `FormActions` với nút "Lưu") → `npm run lint && npm run type-check && npm run test:unit` PASS.
-- [ ] **Step 5: Commit** `feat: tab kết quả thẩm định`.
+- [x] **Step 1: Test thất bại**: format (`0_hiển_thị_trống`, `nhóm_nghìn_bằng_dấu_chấm`, `lowerFirst`); Tables: `đất_mixed_một_dòng_loại_đất_gạch`, `đất_nông_nghiệp_nhiều_dòng`, `công_trình_ẩn_khi_không_có`, `căn_hộ_chưa_có_dữ_liệu`, `ô_tô_làm_tròn_fallback_roundingMoney`; Tab: `đổi_radio_gọi_api_với_roundingMoneyType`, `lưu_gửi_bằng_chữ_tính_bằng_readMoney`, `ẩn_nút_lưu_với_NVPI`, `ghi_chú_chưa_lưu_đánh_dấu_bẩn` (gọi `useDirtyTab`).
+- [x] **Step 2–4:** FAIL → cài đặt (bảng dùng `@/components/ui/table`, tiền `text-right tabular-nums`; radio `RadioOptions`; ghi chú `AutoTextarea`; `FormActions` với nút "Lưu") → `npm run lint && npm run type-check && npm run test:unit` PASS.
+- [x] **Step 5: Commit** `feat: tab kết quả thẩm định`.
