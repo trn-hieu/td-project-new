@@ -15,7 +15,7 @@ Nguồn: `L controller/AppraisalReportTabController.java:81-121`, `L controller/
 - **Lưu** (`updateAsset`): ghi đè mọi cột (CAR không ghi `asset`); file mới upload S3 key `{assetFolder}legalDoc/{reportId}/{assetId}/{uuid}/{fileName}`, thêm vào `appraisal_report_files` (file cũ giữ); `otherInfo`: bỏ dòng nội dung rỗng, sinh uuid thiếu. Xóa file: `DELETE` xóa cứng dòng + object S3. Không đồng bộ sang bảng khác.
 - **Sửa (Khác hệ thống cũ 7–8)**: Đất/Căn hộ chỉ ghi nhóm cột đất (`owner, asset, certificateNumberType, certificateNumber, cnIssuedPlace, gcnNo, gcnNoIssuedDate, forWhom, other, legalDocuments, otherInfo`); Ô tô chỉ ghi `certificateNumber, cnIssuedPlace, gcnNoIssuedDate, gcnNoExpiryDate, carInspection*, legalDocuments`. Danh sách `otherInfo` rỗng → lưu rỗng.
 
-### Task T07: Backend Pháp lý
+### Task T07: Backend Pháp lý ✅ (backend 9529685)
 
 **Files:**
 - Modify: `N model/entity/AppraisalReportAsset.java` (thêm cột ở trên + `other_info` JSON; bỏ `updatable=false` ở `updated` + `@PreUpdate`; phương thức `applyLandLegal(LegalAssetInput)`, `applyCarLegal(LegalAssetInput)`)
@@ -32,9 +32,9 @@ Nguồn: `L controller/AppraisalReportTabController.java:81-121`, `L controller/
   - `PUT …/groups/{groupId}/legal/assets/{assetId}` multipart: part `data` (JSON `LegalAssetInput`), part `files` (tùy chọn) → `ApiResponse.ok(LegalAssetView, "Lưu pháp lý thành công")`.
   - `DELETE …/legal-files/{fileId}` → xóa cứng + S3 (file phải thuộc tài sản của báo cáo, sai → 404).
 
-- [ ] **Step 1: Test thất bại**: repo test đọc/ghi `other_info` (khóa JSON `uuid`, `content`) và file; service: `chủ_tài_sản_mặc_định_theo_loại_yêu_cầu`, `lưu_đất_không_đụng_cột_ô_tô`, `lưu_ô_tô_không_đụng_chủ_và_địa_chỉ`, `khác_rỗng_bị_bỏ_và_sinh_uuid`, `upload_file_đúng_key_s3`, `tài_sản_nhóm_khác_404`; controller multipart.
-- [ ] **Step 2–4:** FAIL → cài đặt → `./mvnw -q test -Dtest='*Legal*,AppraisalReportAssetRepositoryTest,AppraisalReportFileRepositoryTest'` PASS.
-- [ ] **Step 5: Commit** `feat: API tab pháp lý báo cáo thẩm định`.
+- [x] **Step 1: Test thất bại**: repo test đọc/ghi `other_info` (khóa JSON `uuid`, `content`) và file; service: `chủ_tài_sản_mặc_định_theo_loại_yêu_cầu`, `lưu_đất_không_đụng_cột_ô_tô`, `lưu_ô_tô_không_đụng_chủ_và_địa_chỉ`, `khác_rỗng_bị_bỏ_và_sinh_uuid`, `upload_file_đúng_key_s3`, `tài_sản_nhóm_khác_404`; controller multipart.
+- [x] **Step 2–4:** FAIL → cài đặt → `./mvnw -q test -Dtest='*Legal*,AppraisalReportAssetRepositoryTest,AppraisalReportFileRepositoryTest'` PASS.
+- [x] **Step 5: Commit** `feat: API tab pháp lý báo cáo thẩm định`.
 
 ### Task T08: FE Pháp lý — Đất / Căn hộ
 
