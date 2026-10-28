@@ -26,17 +26,17 @@ Bản port rút gọn hiện có (`N service/result/`): `EvaluationResultCalcula
 
 ---
 
-### Task T03: `MoneyWords`
+### Task T03: `MoneyWords` ✅ (backend 4f2494b)
 
 **Files:** Create `N common/util/MoneyWords.java`; Test `NT common/util/MoneyWordsTest.java`; Modify `backend/CLAUDE.md` (bảng helper).
 
 **Interfaces:** Produces `public final class MoneyWords { public static String read(long amount) }` — port `L common/ReadMoneyUtils.java` `doc(long)`: 0 → "Không đồng"; > 8.999.999.999.999.999 → ""; thêm "," sau "tỷ" khi còn nhóm thấp hơn; viết hoa chữ đầu; hậu tố " đồng"; số âm tiền tố "Âm ".
 
-- [ ] **Step 1: Test thất bại**: lấy **ít nhất 8 cặp** đầu vào/đầu ra bằng cách chạy chính `ReadMoneyUtils.doc` cũ (viết test tạm trong legacy hoặc dịch tay từng nhánh) — bắt buộc gồm 0, 5, 15, 105, 1.000.000, 1.250.000.000, 2.000.000.005, số âm, 9.000.000.000.000.000. Đối chiếu thêm với `F lib/read-money.ts` (phải cùng kết quả).
-- [ ] **Step 2: Chạy** `./mvnw -q test -Dtest=MoneyWordsTest` → FAIL.
-- [ ] **Step 3: Port** giữ nguyên thuật toán cũ.
-- [ ] **Step 4: Chạy** → PASS. Thêm dòng helper `| Số tiền bằng chữ tiếng Việt (giống ReadMoneyUtils cũ) | MoneyWords.read(amount) (common/util) | Tự viết bảng chữ số trong service mới |`.
-- [ ] **Step 5: Commit** `feat: MoneyWords đọc số tiền bằng chữ`.
+- [x] **Step 1: Test thất bại**: lấy **ít nhất 8 cặp** đầu vào/đầu ra bằng cách chạy chính `ReadMoneyUtils.doc` cũ (viết test tạm trong legacy hoặc dịch tay từng nhánh) — bắt buộc gồm 0, 5, 15, 105, 1.000.000, 1.250.000.000, 2.000.000.005, số âm, 9.000.000.000.000.000. Đối chiếu thêm với `F lib/read-money.ts` (phải cùng kết quả).
+- [x] **Step 2: Chạy** `./mvnw -q test -Dtest=MoneyWordsTest` → FAIL.
+- [x] **Step 3: Port** giữ nguyên thuật toán cũ.
+- [x] **Step 4: Chạy** → PASS. Thêm dòng helper `| Số tiền bằng chữ tiếng Việt (giống ReadMoneyUtils cũ) | MoneyWords.read(amount) (common/util) | Tự viết bảng chữ số trong service mới |`.
+- [x] **Step 5: Commit** `feat: MoneyWords đọc số tiền bằng chữ`.
 
 ### Task T04: `AppraisalResultCalculator` port đầy đủ, bản rút gọn ủy quyền
 
