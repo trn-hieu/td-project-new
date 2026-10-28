@@ -41,7 +41,7 @@
 - [x] **Step 6: Thêm dòng bảng helper** vào `backend/CLAUDE.md`: `| Kiểm tra hồ sơ → báo cáo → nhóm tài sản trên API màn báo cáo thẩm định | ReportEditScope.requireReport/requireGroup/sortedGroups | Tự so appraisalReportId/appraisalRequestId trong service tab mới |`
 - [x] **Step 7: Commit** `git -C backend add -A && git -C backend commit -m "feat: ReportEditScope và API workspace màn báo cáo thẩm định"`
 
-### Task T02: Khung màn 2 cấp tab
+### Task T02: Khung màn 2 cấp tab ✅ (frontend 070bac3)
 
 **Files:**
 - Modify: `F views/appraisal-record/AppraisalReportEditView.vue` (thay placeholder), `F composables/useRouteTab.ts` (nhận `values` là `MaybeRefOrGetter<readonly T[]>` vì danh sách nhóm nạp bất đồng bộ; giữ tương thích chỗ gọi cũ), `F router/index.ts` (cập nhật comment route: không còn "tạm để trống")
@@ -56,9 +56,10 @@
   - `useDirtyGuard.ts`: `provideDirtyGuard(): { confirmLeave(): Promise<boolean> }`, `useDirtyTab(isDirty: Ref<boolean>): void` (tự gỡ đăng ký khi unmount).
   - `GroupWorkspace.vue` props `{ profileId, reportId, group }`: render tab cấp 2; mỗi tab là một `<component :is>` lấy từ map `tab → component` trong file này (task tab sau thay `TabPlaceholder` bằng component thật — chỉ sửa một dòng map).
 
-- [ ] **Step 0:** `git -C frontend switch -c feat/appraisal-report-edit-tab`
-- [ ] **Step 1: Test thất bại:** `tabs.spec.ts` (`LAND có ctxd`, `CAR nhãn Mô tả phương tiện`, `APARTMENT không có ctxd`); `useDirtyGuard.spec.ts` (`không bẩn thì cho rời`, `bẩn thì gọi confirmDiscard và trả kết quả`, `unmount thì gỡ đăng ký`); `useRouteTab.spec.ts` (`values là getter cập nhật sau khi nạp`); `AppraisalReportEditView.spec.ts`: `hiển_thị_tab_nhóm_theo_nhãn`, `không_có_nhóm_hiện_thông_báo` ("Chưa có nhóm tài sản."), `group_trong_url_chọn_đúng_nhóm`, `hỏi_xác_nhận_khi_rời_tab_chưa_lưu`, `lỗi_tải_hiện_alert_và_nút_thử_lại`.
-- [ ] **Step 2: Chạy** `npm run test:unit -- AppraisalReportEditView useDirtyGuard useRouteTab tabs` → FAIL.
-- [ ] **Step 3: Cài đặt.** View theo khuôn tải/hủy/lỗi của `F views/report-juridical/ReportJuridicalEditView.vue`; layout data page full width (frontend/CLAUDE.md quy tắc 5); header "Báo cáo thẩm định" + nút "Quay lại".
-- [ ] **Step 4: Chạy** `npm run lint && npm run type-check && npm run test:unit` → PASS.
-- [ ] **Step 5: Commit** `git -C frontend add -A && git -C frontend commit -m "feat: khung màn báo cáo thẩm định hai cấp tab"`
+- [x] **Step 0:** `git -C frontend switch -c feat/appraisal-report-edit-tab`
+- [x] **Step 1: Test thất bại:** `tabs.spec.ts` (`LAND có ctxd`, `CAR nhãn Mô tả phương tiện`, `APARTMENT không có ctxd`); `useDirtyGuard.spec.ts` (`không bẩn thì cho rời`, `bẩn thì gọi confirmDiscard và trả kết quả`, `unmount thì gỡ đăng ký`); `useRouteTab.spec.ts` (`values là getter cập nhật sau khi nạp`); `AppraisalReportEditView.spec.ts`: `hiển_thị_tab_nhóm_theo_nhãn`, `không_có_nhóm_hiện_thông_báo` ("Chưa có nhóm tài sản."), `group_trong_url_chọn_đúng_nhóm`, `hỏi_xác_nhận_khi_rời_tab_chưa_lưu`, `lỗi_tải_hiện_alert_và_nút_thử_lại`.
+- [x] **Step 2: Chạy** `npm run test:unit -- AppraisalReportEditView useDirtyGuard useRouteTab tabs` → FAIL.
+- [x] **Step 3: Cài đặt.** View theo khuôn tải/hủy/lỗi của `F views/report-juridical/ReportJuridicalEditView.vue`; layout data page full width (frontend/CLAUDE.md quy tắc 5); header "Báo cáo thẩm định" + nút "Quay lại".
+- [x] **Step 4: Chạy** `npm run lint && npm run type-check && npm run test:unit` → PASS.
+- [x] **Step 5: Commit** `git -C frontend add -A && git -C frontend commit -m "feat: khung màn báo cáo thẩm định hai cấp tab"`
+> Ghi chú T02: `AppraisalRequestListView.spec.ts › moves with "Sửa" into a "Thao tác khác" menu…` đang fail sẵn trên nhánh gốc (không do plan này); bỏ qua khi chạy `npm run test:unit`.
