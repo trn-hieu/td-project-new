@@ -38,7 +38,7 @@ Bản port rút gọn hiện có (`N service/result/`): `EvaluationResultCalcula
 - [x] **Step 4: Chạy** → PASS. Thêm dòng helper `| Số tiền bằng chữ tiếng Việt (giống ReadMoneyUtils cũ) | MoneyWords.read(amount) (common/util) | Tự viết bảng chữ số trong service mới |`.
 - [x] **Step 5: Commit** `feat: MoneyWords đọc số tiền bằng chữ`.
 
-### Task T04: `AppraisalResultCalculator` port đầy đủ, bản rút gọn ủy quyền
+### Task T04: `AppraisalResultCalculator` port đầy đủ, bản rút gọn ủy quyền ✅ (backend 8613a0a)
 
 **Files:**
 - Create: `N model/dto/EvaluationResultResponse.java` (record + record lồng), `N service/result/AppraisalResultCalculator.java`
@@ -50,7 +50,7 @@ Bản port rút gọn hiện có (`N service/result/`): `EvaluationResultCalcula
   - `record EvaluationResultResponse(LandOutsideRow landOutside, List<AreaOutsideRow> landOutsideDetails, List<AreaInsideRow> landInsideDetails, List<ConstructionRow> constructions, Long landAmount, Long roundedLandAmount, Long constructionAmount, Long roundedConstructionAmount, Long referenceConstructionAmount, Long roundedReferenceConstructionAmount, Long totalMoney, Long roundingMoney, Integer roundingMoneyType, String totalPriceWordAppraisal, String note, Long appraisalAssetGroupId, String assetName, Integer assetType, ApartmentDetail apartment, CarDetail car, String landValuationMethod, String totalAreaBelowMaxPrice, String resolutionContent, Long maxPriceOutside)` + `static EvaluationResultResponse empty()` (mọi trường null). Record lồng (tên trường giống DTO cũ): `LandOutsideRow(String area, Long unitPrice, Long amount)`, `AreaOutsideRow(Long landTypeId, String landType, String area, Long price, Long amount, Boolean maxPriceRecord)`, `AreaInsideRow(Long landTypeId, String landType, String area, Long price, Long amount)`, `ConstructionRow(String constructionName, String constructionType, BigDecimal area, BigDecimal unitPrice, BigDecimal qualityRemain, BigDecimal depreciationRate, Long amount, Long originalAmount, Long roundedAmount, Long depreciationAmount, String valuationType)`, `ApartmentDetail(String valuationMethod, DirectComparison directComparison)`, `DirectComparison(Integer ownershipAreaBasis, String ownershipAreaBasisLabel, String area, Long unitPrice, Long amount, Long roundedAmount)`, `CarDetail(Long amount, Long roundedAmount)`.
   - `public final class AppraisalResultCalculator { static EvaluationResultResponse calculate(AppraisalAssetGroup group, AppraisalGroupCompare compare0, ControlCompareFactorSynthetic synthetic, List<AppraisalConstructionDescription> constructions, List<LandPrice> landPrices, AppraisalResult stored, String assetName, Integer roundingMoneyTypeOverride) }` — hàm thuần; `group.getAssetType()` null hoặc khác 1/2/3 → `empty()`.
 
-- [ ] **Step 1: Test thất bại** `AppraisalResultCalculatorTest` (dùng/ mở rộng `EvaluationFixtures`), mỗi test so **toàn bộ record** với giá trị tính tay theo code cũ:
+- [x] **Step 1: Test thất bại** `AppraisalResultCalculatorTest` (dùng/ mở rộng `EvaluationFixtures`), mỗi test so **toàn bộ record** với giá trị tính tay theo code cũ:
   - `mixed_một_dòng_ngoài_qh_làm_tròn_triệu`
   - `nông_nghiệp_dòng_giá_lớn_nhất_thay_bằng_avg_và_đánh_dấu` (2 dòng cùng giá lớn nhất → chỉ dòng đầu `maxPriceRecord=true`; `totalAreaBelowMaxPrice`, `maxPriceOutside`)
   - `nông_nghiệp_không_có_chi_tiết_dùng_areaOutside`
@@ -62,11 +62,11 @@ Bản port rút gọn hiện có (`N service/result/`): `EvaluationResultCalcula
   - `căn_hộ_thông_thủy_cắt_phần_lẻ`; `căn_hộ_phương_pháp_khác_tổng_0`; `căn_hộ_không_có_compare0_nhãn_tim_tường`
   - `ô_tô_làm_tròn_avg`; `assetType_null_trả_rỗng`
   - `bằng_chữ_dùng_MoneyWords`
-- [ ] **Step 2: Chạy** `./mvnw -q test -Dtest=AppraisalResultCalculatorTest` → FAIL.
-- [ ] **Step 3: Cài đặt** port từng hàm `build*` của `AppraisalResultServiceImpl` (Javadoc dẫn số dòng cũ), dùng lại `ResultMath`, `LandPrices`, `EuropeanNumbers`, `LandOutsideValuation` (mở rộng, không copy). Khác biệt duy nhất được phép: `EuropeanNumbers` dùng `Locale.ROOT` (đã ghi chú sẵn).
-- [ ] **Step 4: Chuyển `EvaluationResultCalculator.calculate` sang ủy quyền**, xóa phần trùng lặp công thức.
-- [ ] **Step 5: Chạy** `./mvnw -q test -Dtest='AppraisalResultCalculatorTest,EvaluationResultCalculatorTest,EvaluationResultLoaderTest,LandPricesTest,VcbReportAssemblerTest,VcbReportServiceTest'` → PASS (test cũ **không sửa** để làm xanh; nếu phải sửa → dừng, báo lại).
-- [ ] **Step 6: Commit** `feat: port đầy đủ AppraisalResultCalculator, bản rút gọn ủy quyền`.
+- [x] **Step 2: Chạy** `./mvnw -q test -Dtest=AppraisalResultCalculatorTest` → FAIL.
+- [x] **Step 3: Cài đặt** port từng hàm `build*` của `AppraisalResultServiceImpl` (Javadoc dẫn số dòng cũ), dùng lại `ResultMath`, `LandPrices`, `EuropeanNumbers`, `LandOutsideValuation` (mở rộng, không copy). Khác biệt duy nhất được phép: `EuropeanNumbers` dùng `Locale.ROOT` (đã ghi chú sẵn).
+- [x] **Step 4: Chuyển `EvaluationResultCalculator.calculate` sang ủy quyền**, xóa phần trùng lặp công thức.
+- [x] **Step 5: Chạy** `./mvnw -q test -Dtest='AppraisalResultCalculatorTest,EvaluationResultCalculatorTest,EvaluationResultLoaderTest,LandPricesTest,VcbReportAssemblerTest,VcbReportServiceTest'` → PASS (test cũ **không sửa** để làm xanh; nếu phải sửa → dừng, báo lại).
+- [x] **Step 6: Commit** `feat: port đầy đủ AppraisalResultCalculator, bản rút gọn ủy quyền`.
 
 ### Task T05: API kết quả thẩm định + lưu
 
