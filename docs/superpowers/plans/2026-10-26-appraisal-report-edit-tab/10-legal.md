@@ -46,9 +46,9 @@ Nguồn: `L controller/AppraisalReportTabController.java:81-121`, `L controller/
 - [x] **Step 2–4:** FAIL → cài đặt (vee-validate + zod, `DatePicker` ISO, gợi ý 3.1 bằng `SuggestInput`, `FormActions` nút "Lưu"; `useDirtyTab`) → lint/type-check/test PASS.
 - [x] **Step 5: Commit** `feat: tab pháp lý đất và căn hộ`.
 
-### Task T09: FE Pháp lý — Ô tô
+### Task T09: FE Pháp lý — Ô tô ✅ (frontend d870e89)
 
 **Files:** Create `F components/appraisal-report/edit/legal/LegalCarAssetForm.vue`; Modify `LegalTab.vue`; Test `legal/__tests__/LegalCarAssetForm.spec.ts` (+ case `carLegalText` trong `legal-documents-text.spec.ts`: `giữ_dòng_tự_viết`, `chỉ_dòng_kiểm_định`).
 
-- [ ] **Step 1–4:** test FAIL → cài đặt (địa chỉ chỉ đọc, 2 nhóm trường + file dùng `LegalAttachedFiles`) → PASS.
-- [ ] **Step 5: Commit** `feat: tab pháp lý ô tô`.
+- [x] **Step 1–4:** test FAIL → cài đặt (địa chỉ chỉ đọc, 2 nhóm trường + file dùng `LegalAttachedFiles`) → PASS.
+- [x] **Step 5: Commit** `feat: tab pháp lý ô tô`.
