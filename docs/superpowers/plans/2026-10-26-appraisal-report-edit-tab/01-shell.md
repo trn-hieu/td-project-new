@@ -17,7 +17,7 @@
 
 ---
 
-### Task T01: `ReportEditScope` + API workspace
+### Task T01: `ReportEditScope` + API workspace ✅ (backend 83aa584)
 
 **Files:**
 - Create: `N service/ReportEditScope.java`, `N service/ReportWorkspaceService.java`, `N controller/ReportWorkspaceController.java`, `N model/dto/ReportWorkspace.java`, `N model/dto/ReportWorkspaceGroup.java`
@@ -32,14 +32,14 @@
   - `record ReportWorkspace(long reportId, long profileId, long requestId, List<ReportWorkspaceGroup> groups)`.
   - `GET /api/appraisal-records/{profileId}/reports/{reportId}/workspace` → `ReportWorkspace`.
 
-- [ ] **Step 0:** `git -C backend switch -c feat/appraisal-report-edit-tab`
-- [ ] **Step 1: Test thất bại** `ReportEditScopeTest` (Mockito): `báo_cáo_khác_yêu_cầu_trả_404`, `báo_cáo_đã_xóa_trả_404`, `nhóm_thuộc_báo_cáo_khác_trả_404`, `nhóm_hợp_lệ_trả_về`. `ReportWorkspaceServiceTest`: `nhãn_tài_sản_và_nhóm_ts` (SINGLE ở vị trí 1 → "Tài sản 1", GROUP ở vị trí 2 → "Nhóm TS 2"), `groupIndex_null_xếp_cuối`. Repository test: finder bỏ nhóm `delete_flag` đã xóa.
-- [ ] **Step 2: Chạy** `./mvnw -q test -Dtest='ReportEditScopeTest,ReportWorkspaceServiceTest'` → FAIL.
-- [ ] **Step 3: Cài đặt** theo Interfaces; nhãn tính theo vị trí sau khi sắp xếp (không theo `groupIndex`).
-- [ ] **Step 4: Controller test** `@WebMvcTest`: 200 với JSON `groups[0].label`; 404 khi scope ném NOT_FOUND.
-- [ ] **Step 5: Chạy** các test trên + `AppraisalAssetGroupRepositoryTest` → PASS.
-- [ ] **Step 6: Thêm dòng bảng helper** vào `backend/CLAUDE.md`: `| Kiểm tra hồ sơ → báo cáo → nhóm tài sản trên API màn báo cáo thẩm định | ReportEditScope.requireReport/requireGroup/sortedGroups | Tự so appraisalReportId/appraisalRequestId trong service tab mới |`
-- [ ] **Step 7: Commit** `git -C backend add -A && git -C backend commit -m "feat: ReportEditScope và API workspace màn báo cáo thẩm định"`
+- [x] **Step 0:** `git -C backend switch -c feat/appraisal-report-edit-tab`
+- [x] **Step 1: Test thất bại** `ReportEditScopeTest` (Mockito): `báo_cáo_khác_yêu_cầu_trả_404`, `báo_cáo_đã_xóa_trả_404`, `nhóm_thuộc_báo_cáo_khác_trả_404`, `nhóm_hợp_lệ_trả_về`. `ReportWorkspaceServiceTest`: `nhãn_tài_sản_và_nhóm_ts` (SINGLE ở vị trí 1 → "Tài sản 1", GROUP ở vị trí 2 → "Nhóm TS 2"), `groupIndex_null_xếp_cuối`. Repository test: finder bỏ nhóm `delete_flag` đã xóa.
+- [x] **Step 2: Chạy** `./mvnw -q test -Dtest='ReportEditScopeTest,ReportWorkspaceServiceTest'` → FAIL.
+- [x] **Step 3: Cài đặt** theo Interfaces; nhãn tính theo vị trí sau khi sắp xếp (không theo `groupIndex`).
+- [x] **Step 4: Controller test** `@WebMvcTest`: 200 với JSON `groups[0].label`; 404 khi scope ném NOT_FOUND.
+- [x] **Step 5: Chạy** các test trên + `AppraisalAssetGroupRepositoryTest` → PASS.
+- [x] **Step 6: Thêm dòng bảng helper** vào `backend/CLAUDE.md`: `| Kiểm tra hồ sơ → báo cáo → nhóm tài sản trên API màn báo cáo thẩm định | ReportEditScope.requireReport/requireGroup/sortedGroups | Tự so appraisalReportId/appraisalRequestId trong service tab mới |`
+- [x] **Step 7: Commit** `git -C backend add -A && git -C backend commit -m "feat: ReportEditScope và API workspace màn báo cáo thẩm định"`
 
 ### Task T02: Khung màn 2 cấp tab
 
