@@ -30,8 +30,8 @@ Bảng: SỐ TT | YẾU TỐ | ĐƠN VỊ | TS TĐG | SS1 | SS2 | SS3.
 
 - [x] **Step 1–5:** FAIL → cài đặt (bảng `@/components/ui/table` trong `ScrollableTable`, số `text-right tabular-nums`) → PASS → commit `feat: tab bảng điều chỉnh đất`.
 
-### Task T34: Bảng điều chỉnh — Căn hộ, Ô tô
+### Task T34: Bảng điều chỉnh — Căn hộ, Ô tô ✅ (frontend b19a60e)
 
 **Files:** Modify `AdjustmentPanelTab.vue`, `ValuationMethodCard.vue` (APARTMENT: chỉ DIRECT_COMPARISON; CAR: ẩn khối phương pháp, ẩn ghi chú/nút đất), `PanelSummaryRows.vue` (nhãn B "Đơn giá", đơn vị VND cho CAR; A "Loại xe"); Test thêm case `căn_hộ_chỉ_so_sánh_trực_tiếp`, `ô_tô_nhãn_loại_xe_và_đơn_giá`, `ô_tô_không_có_phương_pháp`, `kết_quả_nhúng_căn_hộ_và_ô_tô` (`sections=['asset']`).
 
-- [ ] **Step 1–5:** FAIL → cài đặt → PASS → commit `feat: bảng điều chỉnh căn hộ và ô tô`.
+- [x] **Step 1–5:** FAIL → cài đặt → PASS → commit `feat: bảng điều chỉnh căn hộ và ô tô`.
