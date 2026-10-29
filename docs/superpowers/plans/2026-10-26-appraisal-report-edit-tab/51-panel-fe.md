@@ -15,14 +15,14 @@ Bảng: SỐ TT | YẾU TỐ | ĐƠN VỊ | TS TĐG | SS1 | SS2 | SS3.
 - "Nguyên tắc khống chế" = mẫu + `priceMain` + " " + đơn vị (+ ", làm tròn {D1 hiển thị} {đơn vị}." khi chế độ 1, `priceMain = floor(avgReal)`); đơn vị `đồng/xe` (CAR) hoặc `đồng/m²`; sinh lại mỗi lần tính. Không có kiểm tra 15% bằng số.
 - Thẻ 2: radio làm tròn (0 không, 1 nghìn); "Nguyên tắc khống chế" chỉ đọc; `landUseRightPlanningValue` khi `hasPlanningLand`; phương pháp định giá: LAND 4 lựa chọn (MIXED / AGRICULTURAL_STATE_PRICE / LAND_USE_CONVERSION / STATE_PRICE), APARTMENT chỉ DIRECT_COMPARISON, CAR không có; `statePriceNote` khi STATE_PRICE (LAND); nút "Chi tiết loại đất ngoài QH" khi LAND_USE_CONVERSION (LAND) → modal: ẩn dòng `landTypeId = 1`, sửa `areaConverted` (0 ≤ x ≤ area), `areaNotConverted = max(0, area − converted)`, ghi chú phương pháp chuyển đổi + ghi chú giá nhà nước nông nghiệp; lưu xong tải lại tab (cũ reload trang — mất sửa dở: bản mới hỏi xác nhận nếu bảng đang bẩn). Bảng kết quả nhúng (đất: có ghi chú AGRICULTURAL) — tải lại sau khi lưu bảng điều chỉnh / modal.
 
-### Task T32: Hàm tính bảng điều chỉnh
+### Task T32: Hàm tính bảng điều chỉnh ✅ (frontend 1c68964)
 
 **Files:** Create `F lib/report-edit/adjustment-panel-calc.ts`; Test `F lib/report-edit/__tests__/adjustment-panel-calc.spec.ts`.
 
 **Interfaces:** `calculatePanel(input: { b: [number | null, number | null, number | null]; rates: Array<[string, string, string]>; roundingType: 0 | 1; assetType: 1 | 2 | 3; template: string }): PanelResult` với `PanelResult = { factors: Array<{ controlRate: [number, number, number]; controlPrice: [number, number, number]; priceAfter: [number, number, number]; priceAfterReal: [number, number, number] }>; priceGuide; priceGuideReal; avgDisplay: number; avgReal: number; gapReal: [number, number, number]; gapText: [string, string, string]; totalControlPrice /*E1*/; totalControlCount /*E2*/; amplitudeText; amplitudeReal; netControlPrice /*E4*/; regulatoryConstraints: string }`; `evaluationLabel(rate: string): string`; `amplitudeText(values: number[]): string`.
 
-- [ ] **Step 1: Test thất bại** với ≥ 3 bộ số liệu tính tay từ công thức cũ: `điều_chỉnh_luôn_theo_B_không_cộng_dồn_cơ_sở`, `tỷ_lệ_rỗng_không_đếm`, `biên_độ_một_giá_trị`, `biên_độ_min_max_dấu_phẩy`, `trung_bình_luôn_chia_3_khi_tsss_trống`, `làm_tròn_nghìn_avgDisplay`, `gap_avg_0_trống`, `ràng_buộc_ô_tô_đồng_xe`, `đánh_giá_ba_nhãn`.
-- [ ] **Step 2–4:** FAIL → cài đặt → PASS. **Step 5: Commit** `feat: hàm tính bảng điều chỉnh`.
+- [x] **Step 1: Test thất bại** với ≥ 3 bộ số liệu tính tay từ công thức cũ: `điều_chỉnh_luôn_theo_B_không_cộng_dồn_cơ_sở`, `tỷ_lệ_rỗng_không_đếm`, `biên_độ_một_giá_trị`, `biên_độ_min_max_dấu_phẩy`, `trung_bình_luôn_chia_3_khi_tsss_trống`, `làm_tròn_nghìn_avgDisplay`, `gap_avg_0_trống`, `ràng_buộc_ô_tô_đồng_xe`, `đánh_giá_ba_nhãn`.
+- [x] **Step 2–4:** FAIL → cài đặt → PASS. **Step 5: Commit** `feat: hàm tính bảng điều chỉnh`.
 
 ### Task T33: Bảng điều chỉnh — Đất
 
