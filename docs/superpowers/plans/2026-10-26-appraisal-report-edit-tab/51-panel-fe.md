@@ -24,11 +24,11 @@ Bảng: SỐ TT | YẾU TỐ | ĐƠN VỊ | TS TĐG | SS1 | SS2 | SS3.
 - [x] **Step 1: Test thất bại** với ≥ 3 bộ số liệu tính tay từ công thức cũ: `điều_chỉnh_luôn_theo_B_không_cộng_dồn_cơ_sở`, `tỷ_lệ_rỗng_không_đếm`, `biên_độ_một_giá_trị`, `biên_độ_min_max_dấu_phẩy`, `trung_bình_luôn_chia_3_khi_tsss_trống`, `làm_tròn_nghìn_avgDisplay`, `gap_avg_0_trống`, `ràng_buộc_ô_tô_đồng_xe`, `đánh_giá_ba_nhãn`.
 - [x] **Step 2–4:** FAIL → cài đặt → PASS. **Step 5: Commit** `feat: hàm tính bảng điều chỉnh`.
 
-### Task T33: Bảng điều chỉnh — Đất
+### Task T33: Bảng điều chỉnh — Đất ✅ (frontend d6adb98)
 
 **Files:** Create `F api/report-edit/panel.ts`, `F components/appraisal-report/edit/panel/AdjustmentPanelTab.vue`, `FactorRows.vue`, `PanelSummaryRows.vue` (D/E), `ValuationMethodCard.vue`, `AreaOutsideConversionModal.vue`; Modify `GroupWorkspace.vue` (map `panel`). Dùng `EvaluationResultTables` (`sections=['land']`, `showAgriculturalNote`). Test `AdjustmentPanelTab.spec.ts` (`tải_lại_khi_mở_tab`, `đổi_nhãn_gọi_preview_và_điền`, `nhãn_khác_bắt_buộc_nhập_tên`, `thêm_dòng_mặc_định_khác`, `không_xóa_dòng_đầu`, `lưu_gửi_avgPriceGuide_hiển_thị`, `chuyển_đổi_hiện_nút_chi_tiết`, `lưu_modal_tải_lại_kết_quả`), `AreaOutsideConversionModal.spec.ts` (`ẩn_đất_ở`, `chuyển_đổi_vượt_diện_tích_báo_lỗi`).
 
-- [ ] **Step 1–5:** FAIL → cài đặt (bảng `@/components/ui/table` trong `ScrollableTable`, số `text-right tabular-nums`) → PASS → commit `feat: tab bảng điều chỉnh đất`.
+- [x] **Step 1–5:** FAIL → cài đặt (bảng `@/components/ui/table` trong `ScrollableTable`, số `text-right tabular-nums`) → PASS → commit `feat: tab bảng điều chỉnh đất`.
 
 ### Task T34: Bảng điều chỉnh — Căn hộ, Ô tô
 
