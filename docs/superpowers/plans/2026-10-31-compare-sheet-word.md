@@ -44,7 +44,7 @@ Thứ tự trong file Word cũ:
   - Doanh nghiệp (`requestType="2"`) lấy `companyName`.
   - S3 ném lỗi thì ô ghi tên file.
 
-## Task 2: Backend, service, Static Maps và endpoint
+## Task 2: Backend, service, Static Maps và endpoint ✅ (backend e97b194, sửa thứ tự key/route ở commit sau)
 - **`service/StaticMapClient`** (`@Component`): `byte[] fetch(List<AppraisalGroupCompare> activeCompares, String apiKey, String polyline)`.
   - URL dựng y hệt `fetchGoogleStaticMapBytes` cũ: `format=png32&scale=2&size=500x300&maptype=satellite`, marker có `label:<type>` khi type > 0, `path=color:0x0000ffff|weight:3|enc:`.
   - Dùng `java.net.http.HttpClient` như `WalkingRouteService`, timeout 5s/10s. Lỗi thì trả null.
@@ -63,7 +63,7 @@ Thứ tự trong file Word cũ:
   - `StaticMapClientTest.buildUrl`: marker, path, key.
   - `GroupCompareController` WebMvc: 200 kèm header `filename*=UTF-8''Phieu_TSSS_…docx`, 404, 403 với GUEST, 401 khi không có token.
 
-## Task 3: Frontend, nút "Xuất phiếu TSSS"
+## Task 3: Frontend, nút "Xuất phiếu TSSS" ✅ (frontend 82fcb11)
 - **API:** `src/api/report-edit/compare.ts` thêm `downloadCompareSheet(profileId, reportId, groupId)`, trả `api.download(\`${groupPath(...)}/compare/word\`)`.
 - **Component** `src/components/appraisal-report/edit/compare/ExportCompareSheetButton.vue`, mô phỏng `edit/DownloadReportButton.vue`:
   - props `profileId`, `reportId`, `groupId`;
