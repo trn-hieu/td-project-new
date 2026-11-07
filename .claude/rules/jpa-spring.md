@@ -35,7 +35,13 @@ Rules for the cases that remain native:
 - Paged native queries need an explicit `countQuery`.
 - Keep native SQL inside the repository, never in a service or controller.
 - Map results into a `record` / projection, not `Object[]`.
-- New code must not use `JdbcTemplate` or raw JDBC.
+- New code must not use `JdbcTemplate` or raw JDBC. **Exception**: `JuridicalReportRepository` (báo cáo pháp lý) keeps the legacy `JdbcTemplate` SQL on purpose. Do not copy it for other screens.
+- **Streaming a large result (export)**: return `Stream<Projection>` from a Spring Data `@Query` method with
+  `@QueryHints(@QueryHint(name = "org.hibernate.fetchSize", value = "-2147483648"))` (Hibernate 7 + Connector/J do
+  stream row by row; verified by `ValuationReportRepositoryTest`). The service reads it in
+  `@Transactional(readOnly = true)` inside `try (Stream<…> rows = repository.stream(…))` and hands it to a
+  `StreamingExportCommon` subclass. Pattern: `ValuationReportRepository` + `ValuationReportService.export`.
+  While the stream is open the connection cannot run any other statement; read lookups before opening it.
 - **Touching an existing native query**: if the change is more than a one-line fix and the query can be written
   in JPQL / `Specification`, convert it as part of the change. If you leave it native, do not extend it further
   (no new conditions or joins); say why in the summary.
@@ -53,6 +59,7 @@ model/entity/    JPA entities
 model/dto/       request/response records (and value records/enums passed between layers, e.g. SearchArea)
 common/          shared code: exception, response, time, util, constant
 config/          @Configuration classes and @ConfigurationProperties (XxxConfig, XxxProperties)
+schedule/        contain schudule jobs
 ```
 
 - Classes of different features sit side by side in the same layer package; a class is named after its feature
