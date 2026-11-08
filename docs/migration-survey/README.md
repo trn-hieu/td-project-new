@@ -19,7 +19,7 @@ Ký hiệu: ✅ đã migrate đủ · ⚠️ migrate một phần · ❌ chưa m
 | 1. Hồ sơ / báo cáo thẩm định | [01-appraisal-records.md](01-appraisal-records.md) | ~36 | 0 | 2 + luồng duyệt hồ sơ + 3 job ảnh | ~7 |
 | 2. Yêu cầu, chứng thư, in ấn, pháp lý, file | [02-request-certificate-juridical.md](02-request-certificate-juridical.md) | 41 | 3 | 2 | 6 |
 | 3. Báo cáo & xuất Excel | [03-reports.md](03-reports.md) | 19 | 0 | 1 | 3 |
-| 4. Kế toán, nhân sự, xác thực, hệ thống | [04-accounting-hr-system.md](04-accounting-hr-system.md) | 36 | 7 | 5 | 7 |
+| 4. Kế toán, nhân sự, xác thực, hệ thống | [04-accounting-hr-system.md](04-accounting-hr-system.md) | 39 | 6 | 3 | 7 |
 
 **Kết luận:** phần lớn chức năng đang dùng đã migrate đủ cả BE lẫn FE, chiếm khoảng 85% số dòng khảo sát. Trong đó có toàn bộ 18 báo cáo đang dùng, màn 6 tab hồ sơ thẩm định, xuất Word (đã có test đối chiếu), phân quyền role và menu. Tuy vậy, **chưa thể tắt legacy** vì còn các thiếu sót ở mục dưới, đặc biệt là các job xử lý ảnh.
 
@@ -33,7 +33,7 @@ Ký hiệu: ✅ đã migrate đủ · ⚠️ migrate một phần · ❌ chưa m
    - `ComparisonAssetImageWordExportSchedule`
 
    BE mới vẫn đọc hai cột `backup_resize_path` và `word_export_image_path` do các job này ghi. Khi tắt legacy, ảnh mới upload sẽ không có bản đã resize hay tối ưu cho Word. Word vẫn xuất được nhờ fallback về ảnh gốc, nhưng file sẽ rất nặng.
-2. **Không tạo được Tiểu mục và Tài khoản ghi nợ/có mới** (nhóm 4). Legacy có `POST /accounting/subsection/create`, `/accounting/creditAccount/create` và `/accounting/creditAccount/detail`. BE mới và FE mới đều không có.
+2. ~~Không tạo được Tiểu mục và Tài khoản ghi nợ/có mới~~ — đã xong (`POST /api/accounting/subsections`, `POST /api/accounting/credit-accounts`, nút "+" ở màn tạo hạch toán). `creditAccount/detail` không cần port vì số dư đã nằm trong `form-options`.
 3. **Thiếu xuất Excel danh sách hồ sơ thẩm định** (nhóm 1). `AppraisalProfileExcelExporter` của legacy chưa có ở BE mới, FE mới cũng không có nút xuất.
 4. **Thiếu chức năng "Trích xuất"** (nhóm 1). Đây là biểu đồ hồ sơ theo chi nhánh và tháng, chỉ chi nhánh HN dùng. Trong `AppraisalRecordListView.vue`, FE mới mới có nút ở trạng thái `disabled`.
 5. **Runner migrate dữ liệu** (nhóm 1, 4). `LandDetailLandUseRowsMigrationRunner` và `LandDetailPlotsStructureMigrationRunner` mặc định bật trên legacy. Cần xác nhận hai runner đã chạy xong trên DB production trước khi tắt legacy, vì BE mới đọc cấu trúc `plots → mapSheets`.
@@ -42,7 +42,7 @@ Ký hiệu: ✅ đã migrate đủ · ⚠️ migrate một phần · ❌ chưa m
 
 6. **Mục menu "Xem tài liệu"** (`/download/list`, gồm Quy chế KSCL và khung giá đất) đã có trong `nav-items.ts`, nhưng không có route hay view nên bấm vào không có tác dụng.
 7. **Xem file Office** (`/view-file`) chỉ hỗ trợ tài liệu có `s3FilePath`. File cũ chỉ có `filePath` lưu ở local sẽ trả 404. Cần xác minh dữ liệu cũ đã được chuyển lên S3.
-8. **Xóa bút toán phí khai thác:** nút xóa đang `disabled` ở `ExploitationFeeListView.vue`.
+8. ~~Xóa bút toán phí khai thác~~ — đã xong (`DELETE /api/accounting/exploitation-fees/{id}`, nút Xóa ở `ExploitationFeeListView.vue`).
 9. **Bảo mật đăng xuất:** đăng xuất chỉ xóa token phía client, refresh token vẫn còn hiệu lực 14 ngày. Cần xác minh có gọi `RefreshTokenService.revokeAll` hay không.
 10. **Không có trang 403:** khi thiếu quyền, người dùng bị đưa về `/` mà không có thông báo.
 11. **Thông báo `ACCOUNTING_IMPORT`** không còn được tạo, vì import ở hệ thống mới chạy đồng bộ.
