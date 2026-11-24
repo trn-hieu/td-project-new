@@ -35,3 +35,13 @@ Lưu ý:
   git add <đường-dẫn-submodule>
   git commit -m "Update submodule"
   ```
+
+## Kết nối Zalo OA
+
+- Trang FE (không có menu, truy cập trực tiếp bằng URL, cần đăng nhập, không cần quyền admin): `<PUBLIC_BASE_URL>/admin/integrations/zalo`. Ví dụ local: `http://localhost:5173/admin/integrations/zalo`.
+- API BE (cần đăng nhập):
+  - `POST /api/integrations/zalo/connect` → `{ authorizeUrl }`
+  - `GET /api/integrations/zalo/status` → `{ connected, oaId, accessTokenExpiresAt, refreshTokenExpiresAt, status, lastError }` (không trả token)
+  - `DELETE /api/integrations/zalo`
+- Callback công khai cho Zalo: `GET /api/public/zalo/callback`. Đăng ký `https://<domain-backend>/api/public/zalo/callback` trên developers.zalo.me, trùng với `ZALO_REDIRECT_URI`. Callback luôn redirect (302) về trang FE ở trên kèm `?result=success` hoặc `?result=error&reason=<mã>`.
+- Biến môi trường (backend): `ZALO_ENABLED` (mặc định `false`, tắt thì các endpoint trả 404), `ZALO_APP_ID`, `ZALO_SECRET_KEY`, `ZALO_REDIRECT_URI`, `ZALO_OA_ID`, `ZALO_TOKEN_ENCRYPTION_KEY`
